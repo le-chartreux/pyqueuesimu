@@ -10,10 +10,18 @@ app = typer.Typer()
 
 
 @app.command()
-def pyqueuesimu_cli() -> None:
-    """Run the queue simulation."""
-    print("hello world!")
-    T = poisson_process_simulation()
-    TS = depart_process_simulation(T)
-    print(T)
-    print(TS)
+def pyqueuesimu_cli(
+    constant_arrival_rate: float,
+    exponential_service_law_parameter: float,
+    observation_duration: float = 60
+) -> None:
+    """Run the queue simulation.
+
+    Args:
+        - constant_arrival_rate: inter-arrival time of clients.
+        - exponential_service_law_parameter: parameter of the exponential law that
+            the service time follows.
+        - observation_duration: how long the observation should last.
+    """
+    print(f"The inter-arrival time of clients is {constant_arrival_rate}.")
+    print(f"The service time follows an exponential law of parameter {exponential_service_law_parameter}.")
