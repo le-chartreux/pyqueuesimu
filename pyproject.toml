@@ -27,7 +27,7 @@ dev = [
 ]
 
 [project.scripts]
-pyqueuesimu = "pyqueuesimu.__main__:app"
+pyqueuesimu-cli = "pyqueuesimu_cli.__main__:app"
 
 [tool.coverage.paths]
 source = ["src"]
