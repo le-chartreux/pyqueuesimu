@@ -1,0 +1,1 @@
+"""Public package of pyqueuesimu."""
