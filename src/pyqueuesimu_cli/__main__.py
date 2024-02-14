@@ -2,6 +2,9 @@
 import typer
 from rich import print
 
+from pyqueuesimu import depart_process_simulation
+from pyqueuesimu import poisson_process_simulation
+
 
 app = typer.Typer()
 
