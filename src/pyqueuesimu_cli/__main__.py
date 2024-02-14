@@ -1,10 +1,12 @@
 """Command line interface executable of pyqueuesimu."""
+
 import typer
 from rich import print
 
-from pyqueuesimu import depart_process_simulation
-from pyqueuesimu import poisson_process_simulation
-
+from pyqueuesimu import (
+    generate_times_between_arrivals,
+    get_arrival_times_from_time_between_arrivals,
+)
 
 app = typer.Typer()
 
@@ -13,7 +15,7 @@ app = typer.Typer()
 def pyqueuesimu_cli(
     constant_arrival_rate: float,
     exponential_service_law_parameter: float,
-    observation_duration: float = 60
+    observation_duration: float = 60,
 ) -> None:
     """Run the queue simulation.
 
@@ -23,5 +25,9 @@ def pyqueuesimu_cli(
             the service time follows.
         - observation_duration: how long the observation should last.
     """
-    print(f"The inter-arrival time of clients is {constant_arrival_rate}.")
-    print(f"The service time follows an exponential law of parameter {exponential_service_law_parameter}.")
+    time_between_arrivals = generate_times_between_arrivals(
+        constant_arrival_rate, observation_duration
+    )
+    print(f"Time between arrivals: {time_between_arrivals}")
+    arrival_times = get_arrival_times_from_time_between_arrivals(time_between_arrivals)
+    print(f"Arrival times: {arrival_times}")
