@@ -1,4 +1,4 @@
-def get_arrival_times_from_time_between_arrivals(
+def get_arrival_times(
     time_between_arrivals: list[float],
 ) -> list[float]:
     """Get the ordinated list of time arrivals from the time between arrivals.

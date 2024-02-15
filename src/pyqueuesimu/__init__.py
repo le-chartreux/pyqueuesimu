@@ -1,9 +1,13 @@
 """Public package of pyqueuesimu."""
 
-from _pyqueuesimu.arrival_times import get_arrival_times_from_time_between_arrivals
-from _pyqueuesimu.inter_events_times import generate_inter_events_times_exponential
+from _pyqueuesimu.arrival_times import get_arrival_times
+from _pyqueuesimu.departure_times import get_departure_times
+from _pyqueuesimu.inter_arrival_times import generate_inter_arrival_times
+from _pyqueuesimu.service_times import generate_service_times
 
 __all__ = [
-    "generate_inter_events_times_exponential",
-    "get_arrival_times_from_time_between_arrivals",
+    "get_arrival_times",
+    "get_departure_times",
+    "generate_inter_arrival_times",
+    "generate_service_times",
 ]

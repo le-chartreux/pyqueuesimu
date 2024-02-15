@@ -1,6 +1,6 @@
 import pytest
 
-from _pyqueuesimu.arrival_times import get_arrival_times_from_time_between_arrivals
+from _pyqueuesimu.arrival_times import get_arrival_times
 
 
 @pytest.mark.parametrize(
@@ -14,5 +14,5 @@ from _pyqueuesimu.arrival_times import get_arrival_times_from_time_between_arriv
 def test_get_arrival_times_from_time_between_arrivals(
     *, time_between_arrivals: list[float], expected_result: list[float]
 ) -> None:
-    result = get_arrival_times_from_time_between_arrivals(time_between_arrivals)
+    result = get_arrival_times(time_between_arrivals)
     assert result == expected_result

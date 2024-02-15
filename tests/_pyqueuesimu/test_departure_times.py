@@ -1,4 +1,5 @@
 import math
+import re
 
 import pytest
 
@@ -22,15 +23,21 @@ def test_get_departure_times(
     result = get_departure_times(arrival_times, service_times)
     assert all(
         math.isclose(elem_result, elem_expected_result)
-        for elem_result, elem_expected_result in zip(result, expected_result)
+        for elem_result, elem_expected_result in zip(
+            result, expected_result, strict=True
+        )
     )
 
 
-def test_get_departure_times__raise_when_size_differs() -> None:
-    with pytest.raises(ValueError) as error:
-        get_departure_times([], [1])
-    assert str(error.value) == "len(arrival_times) != len(service_times): 0 != 1"
-
-    with pytest.raises(ValueError) as error:
-        get_departure_times([5, 2, 7], [1])
-    assert str(error.value) == "len(arrival_times) != len(service_times): 3 != 1"
+@pytest.mark.parametrize(
+    ("arrival_times", "service_times", "expected_error_message"),
+    [
+        ([], [1], "len(arrival_times) != len(service_times): 0 != 1"),
+        ([5, 2, 7], [1], "len(arrival_times) != len(service_times): 3 != 1"),
+    ],
+)
+def test_get_departure_times__raise_when_size_differs(
+    arrival_times: list[float], service_times: list[float], expected_error_message: str
+) -> None:
+    with pytest.raises(ValueError, match=re.escape(expected_error_message)):
+        get_departure_times(arrival_times, service_times)
