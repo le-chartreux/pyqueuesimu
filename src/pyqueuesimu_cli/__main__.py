@@ -4,7 +4,7 @@ import typer
 from rich import print
 
 from pyqueuesimu import (
-    generate_times_between_arrivals,
+    generate_inter_events_times_exponential,
     get_arrival_times_from_time_between_arrivals,
 )
 
