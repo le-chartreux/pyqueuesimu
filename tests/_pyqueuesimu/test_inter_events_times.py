@@ -9,15 +9,21 @@ from _pyqueuesimu.inter_events_times import (
 )
 
 
+@pytest.mark.parametrize(
+    ("time_to_next_event", "observation_duration"),
+    [(1, 100), (4.5, 100), (140.92, 100), (140.92, 200)]
+)
 @patch("_pyqueuesimu.inter_events_times._generate_time_to_next_event")
 def test_generate_inter_events_times_exponential(
-    mock__generate_time_to_next_event: Mock,
+    mock__generate_time_to_next_event: Mock, *,
+    time_to_next_event: float, observation_duration: float
 ) -> None:
-    mock__generate_time_to_next_event.return_value = 1.1
-    expected_result = [mock__generate_time_to_next_event.return_value] * 4
-    result = generate_inter_events_times_exponential(1, 5)
+    mock__generate_time_to_next_event.return_value = time_to_next_event
+    number_of_events = int(observation_duration // time_to_next_event)
+    expected_result = [time_to_next_event] * number_of_events
+    result = generate_inter_events_times_exponential(1, observation_duration)
     assert result == expected_result
-    mock__generate_time_to_next_event.assert_has_calls([call(1)] * 4)
+    mock__generate_time_to_next_event.assert_has_calls([call(1)] * number_of_events)
 
 
 def test_generate_inter_events_times_exponential__sum_below_duration() -> None:
