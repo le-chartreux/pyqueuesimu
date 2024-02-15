@@ -1,5 +1,6 @@
 def get_departure_times(
-    arrival_times: list[float], service_times: list[float],
+    arrival_times: list[float],
+    service_times: list[float],
 ) -> list[float]:
     """Get the ordinated list of time departures.
 

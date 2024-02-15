@@ -14,7 +14,10 @@ from _pyqueuesimu.departure_times import get_departure_times
     ],
 )
 def test_get_departure_times(
-    *, arrival_times: list[float], service_times: list[float], expected_result: list[float]
+    *,
+    arrival_times: list[float],
+    service_times: list[float],
+    expected_result: list[float],
 ) -> None:
     result = get_departure_times(arrival_times, service_times)
     assert all(

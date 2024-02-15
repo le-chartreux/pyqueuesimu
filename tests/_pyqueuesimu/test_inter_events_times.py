@@ -29,14 +29,16 @@ def test_generate_inter_events_times_exponential__sum_below_duration() -> None:
 
 @pytest.mark.parametrize(
     ("constant_rate", "observation_duration"),
-    [(1, 1000), (0.1, 10000), (100, 10), (42.97, 50), (93.19021, 10), (32.914401, 100)]
+    [(1, 1000), (0.1, 10000), (100, 10), (42.97, 50), (93.19021, 10), (32.914401, 100)],
 )
 def test_generate_inter_events_times_exponential__coherent_number_of_elements(
     *, constant_rate: float, observation_duration: float
 ) -> None:
     """It produces a number of events near constant_rate * observation_duration."""
     expected_len = constant_rate * observation_duration
-    result = generate_inter_events_times_exponential(constant_rate, observation_duration)
+    result = generate_inter_events_times_exponential(
+        constant_rate, observation_duration
+    )
     assert (expected_len * 0.9) < len(result) < (expected_len * 1.1)
 
 
