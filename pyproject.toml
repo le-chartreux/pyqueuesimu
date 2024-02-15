@@ -34,7 +34,7 @@ source = ["src"]
 
 [tool.coverage.run]
 branch = true
-source = ["pyqueuesimu", "_pyqueuesimu"]
+source = ["pyqueuesimu", "_pyqueuesimu", "pyqueuesimu_cli"]
 
 [tool.coverage.report]
 show_missing = true
@@ -134,7 +134,7 @@ lint.ignore = [
 convention = "google"
 
 [tool.ruff.lint.isort]
-known-first-party = ["pyqueuesimu", "_pyqueuesimu"]
+known-first-party = ["pyqueuesimu", "_pyqueuesimu", "pyqueuesimu_cli"]
 
 [tool.setuptools_scm]
 # this section should exist even if it is empty to allow setuptools_scm to work
