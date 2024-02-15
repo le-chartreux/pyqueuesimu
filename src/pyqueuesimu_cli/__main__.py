@@ -20,12 +20,12 @@ def pyqueuesimu_cli(
     """Run the queue simulation.
 
     Args:
-        - constant_arrival_rate: inter-arrival time of clients.
-        - exponential_service_law_parameter: parameter of the exponential law that
+        constant_arrival_rate: inter-arrival time of clients.
+        exponential_service_law_parameter: parameter of the exponential law that
             the service time follows.
-        - observation_duration: how long the observation should last.
+        observation_duration: how long the observation should last.
     """
-    time_between_arrivals = generate_times_between_arrivals(
+    time_between_arrivals = generate_inter_events_times_exponential(
         constant_arrival_rate, observation_duration
     )
     print(f"Time between arrivals: {time_between_arrivals}")
