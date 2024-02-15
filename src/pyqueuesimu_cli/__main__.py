@@ -13,20 +13,19 @@ app = typer.Typer()
 
 @app.command()
 def pyqueuesimu_cli(
-    constant_arrival_rate: float,
-    exponential_service_law_parameter: float,
+    arrival_rate: float,
+    service_rate: float,
     observation_duration: float = 60,
 ) -> None:
     """Run the queue simulation.
 
     Args:
-        constant_arrival_rate: inter-arrival time of clients.
-        exponential_service_law_parameter: parameter of the exponential law that
-            the service time follows.
+        arrival_rate: parameter of the exponential law that the arrival time follows.
+        service_rate: parameter of the exponential law that the service time follows.
         observation_duration: how long the observation should last.
     """
     time_between_arrivals = generate_inter_events_times_exponential(
-        constant_arrival_rate, observation_duration
+        arrival_rate, observation_duration
     )
     print(f"Time between arrivals: {time_between_arrivals}")
     arrival_times = get_arrival_times_from_time_between_arrivals(time_between_arrivals)
