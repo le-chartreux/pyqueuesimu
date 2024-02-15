@@ -25,5 +25,5 @@ def get_departure_times(
     # todo check with the teacher about the max that is in the given algorithm
     return [
         arrival_time + service_time
-        for arrival_time, service_time in zip(arrival_times, service_times)
+        for arrival_time, service_time in zip(arrival_times, service_times, strict=True)
     ]
