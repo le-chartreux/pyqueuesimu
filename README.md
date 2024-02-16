@@ -31,10 +31,11 @@ python3 -m venv .venv
 source .venv/bin/activate
 # Install the project
 pip install .
-# Run pyqueuesimu-cli with the parameters you want
-pyqueuesimu-cli 8 12 --observation-duration 10
+# Run pyqueuesimu with the parameters you want
+pyqueuesimu cli 8 12 --observation-duration 10
+pyqueuesimu gui 100 2 --observation-duration 60
 # The list of parameters is available with the following command
-pyqueuesimu-cli --help
+pyqueuesimu --help
 ```
 
 ### Windows
@@ -49,7 +50,8 @@ python -m venv .venv
 # Install the project
 pip install .
 # Run pyqueuesimu-cli with the parameters you want
-pyqueuesimu-cli 8 12 --observation-duration 10
+pyqueuesimu cli 8 12 --observation-duration 10
+pyqueuesimu gui 100 2 --observation-duration 60
 # The list of parameters is available with the following command
-pyqueuesimu-cli --help
+pyqueuesimu --help
 ```

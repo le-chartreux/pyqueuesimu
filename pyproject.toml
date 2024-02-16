@@ -9,7 +9,7 @@ keywords = ["queue", "simulation"]
 requires-python = ">=3.11"
 
 dependencies = [
-    "numpy",
+    "matplotlib",
     "typer[all]"
 ]
 
@@ -27,14 +27,14 @@ dev = [
 ]
 
 [project.scripts]
-pyqueuesimu-cli = "pyqueuesimu_cli.__main__:app"
+pyqueuesimu = "pyqueuesimu.__main__:app"
 
 [tool.coverage.paths]
 source = ["src"]
 
 [tool.coverage.run]
 branch = true
-source = ["pyqueuesimu", "_pyqueuesimu", "pyqueuesimu_cli"]
+source = ["pyqueuesimu", "_pyqueuesimu"]
 
 [tool.coverage.report]
 show_missing = true
@@ -134,7 +134,7 @@ lint.ignore = [
 convention = "google"
 
 [tool.ruff.lint.isort]
-known-first-party = ["pyqueuesimu", "_pyqueuesimu", "pyqueuesimu_cli"]
+known-first-party = ["pyqueuesimu", "_pyqueuesimu"]
 
 [tool.setuptools_scm]
 # this section should exist even if it is empty to allow setuptools_scm to work
