@@ -43,6 +43,7 @@ def gui(
     arrival_rate: float,
     service_rate: float,
     observation_duration: float = 60,
+    time_unit: str = ""
 ) -> None:
     """Run the queue simulation and output to a graphical interface (plot).
 
@@ -50,6 +51,7 @@ def gui(
         arrival_rate: number of client arrival per time unit.
         service_rate: average number of clients per time units that are served.
         observation_duration: how long the observation should last.
+        time_unit: optional parameter to indicate the time unit (only aesthetic).
     """
     time_between_arrivals = generate_inter_arrival_times(
         arrival_rate, observation_duration
@@ -60,7 +62,7 @@ def gui(
     plt.plot(arrival_times, label="Arrivals")
     plt.plot(departure_times, label="Departures")
     plt.xlabel("Client number")
-    plt.ylabel("Time")
+    plt.ylabel(f"Time {f'({time_unit})' if time_unit else ''}")
     plt.title("Arrival and Departure of Clients")
     plt.legend()
     plt.show()
