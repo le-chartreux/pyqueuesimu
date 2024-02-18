@@ -22,8 +22,8 @@ def cli(
     """Run the queue simulation and output to command line.
 
     Args:
-        arrival_rate: parameter of the exponential law that the arrival time follows.
-        service_rate: parameter of the exponential law that the service time follows.
+        arrival_rate: number of client arrival per time unit.
+        service_rate: average number of clients per time units that are served.
         observation_duration: how long the observation should last.
     """
     time_between_arrivals = generate_inter_arrival_times(
@@ -47,8 +47,8 @@ def gui(
     """Run the queue simulation and output to a graphical interface (plot).
 
     Args:
-        arrival_rate: parameter of the exponential law that the arrival time follows.
-        service_rate: parameter of the exponential law that the service time follows.
+        arrival_rate: number of client arrival per time unit.
+        service_rate: average number of clients per time units that are served.
         observation_duration: how long the observation should last.
     """
     time_between_arrivals = generate_inter_arrival_times(
