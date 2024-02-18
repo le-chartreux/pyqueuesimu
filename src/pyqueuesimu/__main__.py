@@ -21,6 +21,9 @@ def cli(
 ) -> None:
     """Run the queue simulation and output to command line.
 
+    Arrival rate and service rate follows an exponential law based on the given
+    average values.
+
     Args:
         arrival_rate: number of client arrival per time unit.
         service_rate: average number of clients per time units that are served.
@@ -47,6 +50,9 @@ def gui(
 ) -> None:
     """Run the queue simulation and output to a graphical interface (plot).
 
+    Arrival rate and service rate follows an exponential law based on the given
+    average values.
+
     Args:
         arrival_rate: number of client arrival per time unit.
         service_rate: average number of clients per time units that are served.
@@ -70,7 +76,7 @@ def gui(
 
 @app.command()
 def gui_example(k: int = 2, observation_duration: float = 60) -> None:
-    """Run the queue simulation with coherent values based on the given k.
+    """Run the queue simulation with GUI and coherent values based on the given k.
 
     The arrival rate is (324 - 24*k) requests/second and a service takes
     (0.5 * k + 1) ms/request.
