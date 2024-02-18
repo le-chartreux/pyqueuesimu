@@ -66,3 +66,15 @@ def gui(
     plt.title("Arrival and Departure of Clients")
     plt.legend()
     plt.show()
+
+
+@app.command()
+def gui_example(k: int = 2, observation_duration: float = 60) -> None:
+    """Run the queue simulation with coherent values based on the given k.
+
+    The arrival rate is (324 - 24*k) requests/second and a service takes
+    (0.5 * k + 1) ms/request.
+    """
+    arrival_rate = 324 - 24*k
+    service_rate = 1 / ((0.5 * k + 1) / 1000)
+    gui(arrival_rate, service_rate, observation_duration, time_unit="seconds")
