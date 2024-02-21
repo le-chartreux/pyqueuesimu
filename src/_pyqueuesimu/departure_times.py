@@ -23,7 +23,7 @@ def get_departure_times(
         )
         raise ValueError(error_message)
     departure_times = []
-    previous_departure_time = 0
+    previous_departure_time = 0.0
     for i in range(len(arrival_times)):
         arrival_time = arrival_times[i]
         beginning_of_computation_time = max(arrival_time, previous_departure_time)
