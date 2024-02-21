@@ -50,8 +50,8 @@ skip_gitignore = true
 strict = true
 
 [[tool.mypy.overrides]]
-# numexpr does not have stubs for now
-module = "numexpr"
+# matplotlib does not have stubs for now
+module = "matplotlib.*"
 ignore_missing_imports = true
 
 
