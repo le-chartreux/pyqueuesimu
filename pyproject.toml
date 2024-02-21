@@ -128,6 +128,7 @@ lint.ignore = [
     "PLR2004", # magic value in comparison is OK for tests
     "S101", # asserts are OK for tests
     "SLF001", # accessing private members is OK for tests
+    "D103"  # no need for docstrings in tests it's not that important
 ]
 
 [tool.ruff.lint.pydocstyle]
