@@ -9,8 +9,8 @@ from _pyqueuesimu.departure_times import get_departure_times
 @pytest.mark.parametrize(
     ("arrival_times", "service_times", "expected_result"),
     [
-        ([1] * 4, [1] * 4, [2] * 4),
-        ([0.1, 2.1, 3.8, 0.4], [1.1, 0.7, 2.1, 0.01], [1.2, 2.8, 5.9, 0.41]),
+        ([1] * 4, [1] * 4, [2, 3, 4, 5]),
+        ([0.1, 2.1, 3.8, 3.9], [1.1, 0.7, 2.1, 0.01], [1.2, 2.8, 5.9, 5.91]),
         ([], [], []),
     ],
 )

@@ -22,8 +22,13 @@ def get_departure_times(
             f"{len(arrival_times)} != {len(service_times)}"
         )
         raise ValueError(error_message)
-    # todo check with the teacher about the max that is in the given algorithm
-    return [
-        arrival_time + service_time
-        for arrival_time, service_time in zip(arrival_times, service_times, strict=True)
-    ]
+    departure_times = []
+    previous_departure_time = 0
+    for i in range(len(arrival_times)):
+        arrival_time = arrival_times[i]
+        beginning_of_computation_time = max(arrival_time, previous_departure_time)
+        service_time = service_times[i]
+        departure_time = beginning_of_computation_time + service_time
+        departure_times.append(departure_time)
+        previous_departure_time = departure_time
+    return departure_times
