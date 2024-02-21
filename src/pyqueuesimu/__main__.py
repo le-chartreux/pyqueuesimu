@@ -8,7 +8,9 @@ from pyqueuesimu import (
     generate_inter_arrival_times,
     generate_service_times,
     get_arrival_times,
+    get_average_waiting_time,
     get_departure_times,
+    get_waiting_times,
 )
 
 app = typer.Typer()
@@ -33,13 +35,14 @@ def cli(
     time_between_arrivals = generate_inter_arrival_times(
         arrival_rate, observation_duration
     )
-    print(f"Time between arrivals: {time_between_arrivals}")
     arrival_times = get_arrival_times(time_between_arrivals)
-    print(f"Arrival times: {arrival_times}")
     service_times = generate_service_times(service_rate, len(arrival_times))
-    print(f"Service times: {service_times}")
     departure_times = get_departure_times(arrival_times, service_times)
+    print(f"Time between arrivals: {time_between_arrivals}")
+    print(f"Arrival times: {arrival_times}")
+    print(f"Service times: {service_times}")
     print(f"Departure times: {departure_times}")
+    show_stats(arrival_times, departure_times)
 
 
 @app.command()
@@ -73,6 +76,7 @@ def gui(
     plt.title("Arrival and Departure of Clients")
     plt.legend()
     plt.show()
+    show_stats(arrival_times, departure_times, time_unit)
 
 
 @app.command()
@@ -85,3 +89,12 @@ def gui_example(k: int = 2, observation_duration: float = 60) -> None:
     arrival_rate = 324 - 24 * k
     service_rate = 1 / ((0.5 * k + 1) / 1000)
     gui(arrival_rate, service_rate, observation_duration, time_unit="seconds")
+
+
+def show_stats(
+    arrival_times: list[float], departure_times: list[float], time_unit: str = ""
+) -> None:
+    """Show some statistics about the execution."""
+    waiting_times = get_waiting_times(arrival_times, departure_times)
+    average_waiting_time = get_average_waiting_time(waiting_times)
+    print(f"Average waiting time: {average_waiting_time} {time_unit}")
