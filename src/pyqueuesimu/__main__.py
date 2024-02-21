@@ -8,10 +8,10 @@ from pyqueuesimu import (
     generate_inter_arrival_times,
     generate_service_times,
     get_arrival_times,
+    get_average_service_time,
     get_average_waiting_time,
     get_departure_times,
     get_waiting_times,
-get_average_service_time
 )
 
 app = typer.Typer()
@@ -93,7 +93,10 @@ def gui_example(k: int = 2, observation_duration: float = 60) -> None:
 
 
 def show_stats(
-    arrival_times: list[float], departure_times: list[float], service_times: list[float], time_unit: str = ""
+    arrival_times: list[float],
+    departure_times: list[float],
+    service_times: list[float],
+    time_unit: str = "",
 ) -> None:
     """Show some statistics about the execution."""
     waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
