@@ -8,6 +8,7 @@ from _pyqueuesimu.statistics.waiting_time import (
     get_average_waiting_time,
     get_waiting_times,
 )
+from _pyqueuesimu.statistics.service_time import get_average_service_time
 
 __all__ = [
     "get_arrival_times",
@@ -16,4 +17,5 @@ __all__ = [
     "generate_service_times",
     "get_waiting_times",
     "get_average_waiting_time",
+    "get_average_service_time"
 ]

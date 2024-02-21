@@ -11,6 +11,7 @@ from pyqueuesimu import (
     get_average_waiting_time,
     get_departure_times,
     get_waiting_times,
+get_average_service_time
 )
 
 app = typer.Typer()
@@ -42,7 +43,7 @@ def cli(
     print(f"Arrival times: {arrival_times}")
     print(f"Service times: {service_times}")
     print(f"Departure times: {departure_times}")
-    show_stats(arrival_times, departure_times)
+    show_stats(arrival_times, service_times, departure_times)
 
 
 @app.command()
@@ -76,7 +77,7 @@ def gui(
     plt.title("Arrival and Departure of Clients")
     plt.legend()
     plt.show()
-    show_stats(arrival_times, departure_times, time_unit)
+    show_stats(arrival_times, departure_times, service_times, time_unit)
 
 
 @app.command()
@@ -92,9 +93,11 @@ def gui_example(k: int = 2, observation_duration: float = 60) -> None:
 
 
 def show_stats(
-    arrival_times: list[float], departure_times: list[float], time_unit: str = ""
+    arrival_times: list[float], departure_times: list[float], service_times: list[float], time_unit: str = ""
 ) -> None:
     """Show some statistics about the execution."""
     waiting_times = get_waiting_times(arrival_times, departure_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
     print(f"Average waiting time: {average_waiting_time} {time_unit}")
+    average_service_time = get_average_service_time(service_times)
+    print(f"Average service time: {average_service_time} {time_unit}")
