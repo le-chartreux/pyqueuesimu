@@ -1,4 +1,5 @@
 """Command line interface executable of pyqueuesimu."""
+
 import matplotlib.pyplot as plt
 import typer
 from rich import print
@@ -46,7 +47,7 @@ def gui(
     arrival_rate: float,
     service_rate: float,
     observation_duration: float = 60,
-    time_unit: str = ""
+    time_unit: str = "",
 ) -> None:
     """Run the queue simulation and output to a graphical interface (plot).
 
@@ -81,6 +82,6 @@ def gui_example(k: int = 2, observation_duration: float = 60) -> None:
     The arrival rate is (324 - 24*k) requests/second and a service takes
     (0.5 * k + 1) ms/request.
     """
-    arrival_rate = 324 - 24*k
+    arrival_rate = 324 - 24 * k
     service_rate = 1 / ((0.5 * k + 1) / 1000)
     gui(arrival_rate, service_rate, observation_duration, time_unit="seconds")
