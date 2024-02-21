@@ -2,13 +2,13 @@ import statistics
 
 
 def get_waiting_times(
-    arrival_times: list[float], departure_times: list[float]
+    arrival_times: list[float], departure_times: list[float], service_times: list[float]
 ) -> list[float]:
-    """Compute the waiting times from the arrival and departure times."""
+    """Compute the waiting times."""
     return [
-        departure_time - arrival_time
-        for arrival_time, departure_time in zip(
-            arrival_times, departure_times, strict=True
+        departure_time - arrival_time - service_time
+        for arrival_time, departure_time, service_time in zip(
+            arrival_times, departure_times, service_times, strict=True
         )
     ]
 

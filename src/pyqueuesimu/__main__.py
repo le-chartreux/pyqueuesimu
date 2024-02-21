@@ -96,7 +96,7 @@ def show_stats(
     arrival_times: list[float], departure_times: list[float], service_times: list[float], time_unit: str = ""
 ) -> None:
     """Show some statistics about the execution."""
-    waiting_times = get_waiting_times(arrival_times, departure_times)
+    waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
     print(f"Average waiting time: {average_waiting_time} {time_unit}")
     average_service_time = get_average_service_time(service_times)

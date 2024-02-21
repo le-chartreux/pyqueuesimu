@@ -9,15 +9,18 @@ from _pyqueuesimu.statistics.waiting_time import (
 
 
 @pytest.mark.parametrize(
-    ("arrival_times", "departure_times", "expected_result"),
-    [([1, 1.5, 2, 3], [2, 2.1, 3, 3.4], [1, 0.6, 1, 0.4])],
+    ("arrival_times", "departure_times", "service_times", "expected_result"),
+    [
+        ([1, 1.5, 2, 3], [2, 2.1, 3, 3.4], [0.4, 0.1, 0.9, 0.2], [0.6, 0.5, 0.1, 0.2])
+    ],
 )
 def test_get_waiting_times(
     arrival_times: list[float],
     departure_times: list[float],
+    service_times: list[float],
     expected_result: list[float],
 ) -> None:
-    result = get_waiting_times(arrival_times, departure_times)
+    result = get_waiting_times(arrival_times, departure_times, service_times)
     assert all(
         math.isclose(elem_result, elem_expected_result)
         for elem_result, elem_expected_result in zip(
