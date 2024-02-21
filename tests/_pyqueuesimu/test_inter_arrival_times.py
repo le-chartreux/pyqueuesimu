@@ -2,14 +2,14 @@ from unittest.mock import Mock, call, patch
 
 import pytest
 
-from _pyqueuesimu.inter_arrival_times import generate_inter_arrival_times
+from _pyqueuesimu.generation.inter_arrival_times import generate_inter_arrival_times
 
 
 @pytest.mark.parametrize(
     ("time_to_next_event", "observation_duration"),
     [(1, 100), (4.5, 100), (140.92, 100), (140.92, 200)],
 )
-@patch("_pyqueuesimu.inter_arrival_times.generate_time_to_next_event")
+@patch("_pyqueuesimu.generation.inter_arrival_times.generate_time_to_next_event")
 def test_generate_inter_arrival_times(
     mock_generate_time_to_next_event: Mock,
     *,

@@ -3,7 +3,7 @@ import re
 
 import pytest
 
-from _pyqueuesimu.departure_times import get_departure_times
+from _pyqueuesimu.generation.departure_times import get_departure_times
 
 
 @pytest.mark.parametrize(

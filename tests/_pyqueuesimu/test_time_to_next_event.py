@@ -3,10 +3,10 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from _pyqueuesimu.time_to_next_event import generate_time_to_next_event
+from _pyqueuesimu.generation.time_to_next_event import generate_time_to_next_event
 
 
-@patch("_pyqueuesimu.time_to_next_event.random.random")
+@patch("_pyqueuesimu.generation.time_to_next_event.random.random")
 @pytest.mark.parametrize(
     ("random_return_value", "expected_result"), [(0.01, 4.6), (0.5, 0.69), (0.99, 0.01)]
 )

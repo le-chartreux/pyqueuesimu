@@ -1,6 +1,6 @@
 import pytest
 
-from _pyqueuesimu.arrival_times import get_arrival_times
+from _pyqueuesimu.generation.arrival_times import get_arrival_times
 
 
 @pytest.mark.parametrize(

@@ -1,4 +1,4 @@
-from _pyqueuesimu.time_to_next_event import generate_time_to_next_event
+from _pyqueuesimu.generation.time_to_next_event import generate_time_to_next_event
 
 
 def generate_inter_arrival_times(
