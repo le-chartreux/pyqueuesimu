@@ -7,6 +7,7 @@ from _pyqueuesimu.generation.service_times import generate_service_times
 from _pyqueuesimu.statistics.clients_in_system import (
     get_average_number_of_clients_in_system,
     get_clients_in_system_times,
+    get_server_occupancy_rate,
 )
 from _pyqueuesimu.statistics.service_time import get_average_service_time
 from _pyqueuesimu.statistics.waiting_time import (
@@ -24,4 +25,5 @@ __all__ = [
     "get_average_service_time",
     "get_average_number_of_clients_in_system",
     "get_clients_in_system_times",
+    "get_server_occupancy_rate",
 ]

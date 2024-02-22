@@ -5,7 +5,25 @@ import pytest
 from _pyqueuesimu.statistics.clients_in_system import (
     get_average_number_of_clients_in_system,
     get_clients_in_system_times,
+    get_server_occupancy_rate,
 )
+
+
+@pytest.mark.parametrize(
+    ("clients_in_system_times", "expected_result"),
+    [
+        ([1], 0),
+        ([0, 1], 1),
+        ([0, 1, 2, 510], 1),
+        ([1, 1], 0.5),
+        ([1, 1, 2, 1], 0.8),
+    ],
+)
+def test_get_server_occupancy_rate(
+    clients_in_system_times: list[float],
+    expected_result: float,
+) -> None:
+    assert get_server_occupancy_rate(clients_in_system_times) == expected_result
 
 
 @pytest.mark.parametrize(
