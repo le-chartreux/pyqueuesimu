@@ -8,8 +8,10 @@ from pyqueuesimu import (
     generate_inter_arrival_times,
     generate_service_times,
     get_arrival_times,
+    get_average_number_of_clients_in_system,
     get_average_service_time,
     get_average_waiting_time,
+    get_clients_in_system_times,
     get_departure_times,
     get_waiting_times,
 )
@@ -77,7 +79,9 @@ def gui(
     plt.title("Arrival and Departure of Clients")
     plt.legend()
     plt.show()
-    show_stats(arrival_times, departure_times, service_times, time_unit)
+    show_stats(
+        arrival_times, departure_times, service_times, observation_duration, time_unit
+    )
 
 
 @app.command()
@@ -96,6 +100,7 @@ def show_stats(
     arrival_times: list[float],
     departure_times: list[float],
     service_times: list[float],
+    observation_duration: float,
     time_unit: str = "",
 ) -> None:
     """Show some statistics about the execution."""
@@ -104,3 +109,10 @@ def show_stats(
     print(f"Average waiting time: {average_waiting_time} {time_unit}")
     average_service_time = get_average_service_time(service_times)
     print(f"Average service time: {average_service_time} {time_unit}")
+    clients_in_system_times = get_clients_in_system_times(
+        arrival_times, departure_times, observation_duration
+    )
+    average_number_of_clients_in_system = get_average_number_of_clients_in_system(
+        clients_in_system_times
+    )
+    print(f"Average number of clients in system: {average_number_of_clients_in_system}")
