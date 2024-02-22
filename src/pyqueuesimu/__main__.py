@@ -43,7 +43,7 @@ def cli(
     print(f"Arrival times: {arrival_times}")
     print(f"Service times: {service_times}")
     print(f"Departure times: {departure_times}")
-    show_stats(arrival_times, service_times, departure_times)
+    show_stats(arrival_times, departure_times, service_times, observation_duration)
 
 
 @app.command()
