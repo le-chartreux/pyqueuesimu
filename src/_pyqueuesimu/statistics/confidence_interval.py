@@ -3,6 +3,14 @@ import statistics
 
 
 def compute_confidence_interval_95_percents(stats: list[float]) -> tuple[float, float]:
+    """Compute a confidence interval at 95% for the given statistics.
+
+    A static t-critical of 1.96 is used because it's OK for intervals on more than
+    30 elements.
+
+    Args:
+        stats: elements to compute a 95% interval on them. Must be longer than 30.
+    """
     # 1.96 is OK to get a 95% confidence interval with more than 30 elements
     t_critical = 1.96
     sample_mean = statistics.mean(stats)
