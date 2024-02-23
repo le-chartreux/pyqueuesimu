@@ -109,19 +109,20 @@ def show_stats(
     """Show some statistics about the execution."""
     waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
-    print(f"Average waiting time: {average_waiting_time} {time_unit}")
     average_service_time = get_average_service_time(service_times)
-    print(f"Average service time: {average_service_time} {time_unit}")
     clients_in_system_times = get_clients_in_system_times(
         arrival_times, departure_times, observation_duration
     )
     average_number_of_clients_in_system = get_average_number_of_clients_in_system(
         clients_in_system_times
     )
-    print(f"Average number of clients in system: {average_number_of_clients_in_system}")
     server_occupancy_rate = get_server_occupancy_rate(clients_in_system_times)
-    print(f"Server occupancy rate: {server_occupancy_rate}")
     incoming_throughput = get_incoming_throughput(arrival_times, observation_duration)
-    print(f"Incoming throughput: {incoming_throughput}")
     outgoing_throughput = get_outgoing_throughput(departure_times, observation_duration)
+
+    print(f"Average waiting time: {average_waiting_time} {time_unit}")
+    print(f"Average service time: {average_service_time} {time_unit}")
+    print(f"Average number of clients in system: {average_number_of_clients_in_system}")
+    print(f"Server occupancy rate: {server_occupancy_rate}")
+    print(f"Incoming throughput: {incoming_throughput}")
     print(f"Outgoing throughput: {outgoing_throughput}")
