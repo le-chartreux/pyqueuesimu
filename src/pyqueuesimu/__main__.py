@@ -85,14 +85,14 @@ def cli_confidence_interval_on_stats_95_percent(
 
         stats_average_waiting_time.append(get_average_waiting_time(waiting_times))
         stats_average_service_time.append(get_average_service_time(service_times))
-        clients_in_system_times = get_clients_times(
+        clients_times = get_clients_times(
             arrival_times, departure_times, observation_duration
         )
         stats_average_number_of_clients.append(
-            get_average_number_of_clients(clients_in_system_times)
+            get_average_number_of_clients(clients_times)
         )
         stats_server_occupancy_rate.append(
-            get_server_occupancy_rate(clients_in_system_times)
+            get_server_occupancy_rate(clients_times)
         )
         stats_incoming_throughput.append(
             get_incoming_throughput(arrival_times, observation_duration)
@@ -186,19 +186,19 @@ def show_stats(
     waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
     average_service_time = get_average_service_time(service_times)
-    clients_in_system_times = get_clients_times(
+    clients_times = get_clients_times(
         arrival_times, departure_times, observation_duration
     )
-    average_number_of_clients_in_system = get_average_number_of_clients(
-        clients_in_system_times
+    average_number_of_clients = get_average_number_of_clients(
+        clients_times
     )
-    server_occupancy_rate = get_server_occupancy_rate(clients_in_system_times)
+    server_occupancy_rate = get_server_occupancy_rate(clients_times)
     incoming_throughput = get_incoming_throughput(arrival_times, observation_duration)
     outgoing_throughput = get_outgoing_throughput(departure_times, observation_duration)
 
     print(f"Average waiting time: {average_waiting_time} {time_unit}")
     print(f"Average service time: {average_service_time} {time_unit}")
-    print(f"Average number of clients in system: {average_number_of_clients_in_system}")
+    print(f"Average number of clients: {average_number_of_clients}")
     print(f"Server occupancy rate: {server_occupancy_rate}")
     print(f"Incoming throughput: {incoming_throughput}")
     print(f"Outgoing throughput: {outgoing_throughput}")
