@@ -5,6 +5,7 @@ import typer
 from rich import print
 
 from pyqueuesimu import (
+    compute_confidence_interval_95_percents,
     generate_inter_arrival_times,
     generate_service_times,
     get_arrival_times,
@@ -49,6 +50,81 @@ def cli(
     print(f"Service times: {service_times}")
     print(f"Departure times: {departure_times}")
     show_stats(arrival_times, departure_times, service_times, observation_duration)
+
+
+@app.command()
+def cli_confidence_interval_on_stats_95_percent(
+    arrival_rate: float,
+    service_rate: float,
+    observation_duration: float = 60,
+) -> None:
+    """Compute stats on the queue simulation with confidence interval of 95%.
+
+    Arrival rate and service rate follows an exponential law based on the given
+    average values.
+
+    Args:
+        arrival_rate: number of client arrival per time unit.
+        service_rate: average number of clients per time units that are served.
+        observation_duration: how long the observation should last.
+    """
+    stats_average_waiting_time = []
+    stats_average_service_time = []
+    stats_average_number_of_clients_in_system = []
+    stats_server_occupancy_rate = []
+    stats_incoming_throughput = []
+    stats_outgoing_throughput = []
+    for _ in range(100):
+        time_between_arrivals = generate_inter_arrival_times(
+            arrival_rate, observation_duration
+        )
+        arrival_times = get_arrival_times(time_between_arrivals)
+        service_times = generate_service_times(service_rate, len(arrival_times))
+        departure_times = get_departure_times(arrival_times, service_times)
+        waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
+
+        stats_average_waiting_time.append(get_average_waiting_time(waiting_times))
+        stats_average_service_time.append(get_average_service_time(service_times))
+        clients_in_system_times = get_clients_in_system_times(
+            arrival_times, departure_times, observation_duration
+        )
+        stats_average_number_of_clients_in_system.append(
+            get_average_number_of_clients_in_system(clients_in_system_times)
+        )
+        stats_server_occupancy_rate.append(
+            get_server_occupancy_rate(clients_in_system_times)
+        )
+        stats_incoming_throughput.append(
+            get_incoming_throughput(arrival_times, observation_duration)
+        )
+        stats_outgoing_throughput.append(
+            get_outgoing_throughput(departure_times, observation_duration)
+        )
+
+    print(
+        "Confidence interval average waiting time: "
+        f"{compute_confidence_interval_95_percents(stats_outgoing_throughput)}"
+    )
+    print(
+        "Confidence interval average service time: "
+        f"{compute_confidence_interval_95_percents(stats_average_service_time)}"
+    )
+    print(
+        "Confidence interval average number of clients in the system: "
+        f"{compute_confidence_interval_95_percents(stats_average_number_of_clients_in_system)}"
+    )
+    print(
+        "Confidence interval average occupancy rate: "
+        f"{compute_confidence_interval_95_percents(stats_server_occupancy_rate)}"
+    )
+    print(
+        "Confidence interval incoming throughput: "
+        f"{compute_confidence_interval_95_percents(stats_incoming_throughput)}"
+    )
+    print(
+        "Confidence interval outgoing throughput: "
+        f"{compute_confidence_interval_95_percents(stats_outgoing_throughput)}"
+    )
 
 
 @app.command()
