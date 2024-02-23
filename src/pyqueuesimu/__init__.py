@@ -6,7 +6,7 @@ from _pyqueuesimu.generation.inter_arrival_times import generate_inter_arrival_t
 from _pyqueuesimu.generation.service_times import generate_service_times
 from _pyqueuesimu.statistics.clients import (
     get_average_number_of_clients,
-    get_clients_times,
+    get_cumulated_time_for_each_number_of_clients,
     get_server_occupancy_rate,
 )
 from _pyqueuesimu.statistics.confidence_interval import (
@@ -32,7 +32,7 @@ __all__ = [
     "get_average_waiting_time",
     "get_average_service_time",
     "get_average_number_of_clients",
-    "get_clients_times",
+    "get_cumulated_time_for_each_number_of_clients",
     "get_server_occupancy_rate",
     "get_outgoing_throughput",
     "get_incoming_throughput",

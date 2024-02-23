@@ -25,7 +25,7 @@ def get_average_number_of_clients(
     return sum(pondered_times) / sum(clients_times)
 
 
-def get_clients_times(
+def get_cumulated_time_for_each_number_of_clients(
     arrival_times: list[float],
     departure_times: list[float],
     observation_duration: float,

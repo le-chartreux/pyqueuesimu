@@ -4,7 +4,7 @@ import pytest
 
 from _pyqueuesimu.statistics.clients import (
     get_average_number_of_clients,
-    get_clients_times,
+    get_cumulated_time_for_each_number_of_clients,
     get_server_occupancy_rate,
 )
 
@@ -60,7 +60,7 @@ def test_get_clients_in_system_times(
     observation_duration: float,
     expected_result: list[float],
 ) -> None:
-    result = get_clients_times(arrival_times, departure_times, observation_duration)
+    result = get_cumulated_time_for_each_number_of_clients(arrival_times, departure_times, observation_duration)
     assert all(
         math.isclose(elem_result, elem_expected_result)
         for elem_result, elem_expected_result in zip(

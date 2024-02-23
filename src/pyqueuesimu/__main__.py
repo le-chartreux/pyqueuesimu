@@ -11,7 +11,7 @@ from pyqueuesimu import (
     get_average_number_of_clients,
     get_average_service_time,
     get_average_waiting_time,
-    get_clients_times,
+    get_cumulated_time_for_each_number_of_clients,
     get_confidence_interval_95_percents,
     get_departure_times,
     get_incoming_throughput,
@@ -85,7 +85,7 @@ def cli_confidence_interval_on_stats_95_percent(
 
         stats_average_waiting_time.append(get_average_waiting_time(waiting_times))
         stats_average_service_time.append(get_average_service_time(service_times))
-        clients_times = get_clients_times(
+        clients_times = get_cumulated_time_for_each_number_of_clients(
             arrival_times, departure_times, observation_duration
         )
         stats_average_number_of_clients.append(
@@ -184,7 +184,7 @@ def show_stats(
     waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
     average_service_time = get_average_service_time(service_times)
-    clients_times = get_clients_times(
+    clients_times = get_cumulated_time_for_each_number_of_clients(
         arrival_times, departure_times, observation_duration
     )
     average_number_of_clients = get_average_number_of_clients(clients_times)
