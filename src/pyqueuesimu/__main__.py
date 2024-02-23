@@ -13,6 +13,8 @@ from pyqueuesimu import (
     get_average_waiting_time,
     get_clients_in_system_times,
     get_departure_times,
+    get_incoming_throughput,
+    get_outgoing_throughput,
     get_server_occupancy_rate,
     get_waiting_times,
 )
@@ -119,3 +121,7 @@ def show_stats(
     print(f"Average number of clients in system: {average_number_of_clients_in_system}")
     server_occupancy_rate = get_server_occupancy_rate(clients_in_system_times)
     print(f"Server occupancy rate: {server_occupancy_rate}")
+    incoming_throughput = get_incoming_throughput(arrival_times, observation_duration)
+    print(f"Incoming throughput: {incoming_throughput}")
+    outgoing_throughput = get_outgoing_throughput(departure_times, observation_duration)
+    print(f"Outgoing throughput: {outgoing_throughput}")

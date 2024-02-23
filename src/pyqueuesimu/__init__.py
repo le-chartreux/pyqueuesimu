@@ -10,6 +10,10 @@ from _pyqueuesimu.statistics.clients_in_system import (
     get_server_occupancy_rate,
 )
 from _pyqueuesimu.statistics.service_time import get_average_service_time
+from _pyqueuesimu.statistics.throughput import (
+    get_incoming_throughput,
+    get_outgoing_throughput,
+)
 from _pyqueuesimu.statistics.waiting_time import (
     get_average_waiting_time,
     get_waiting_times,
@@ -26,4 +30,6 @@ __all__ = [
     "get_average_number_of_clients_in_system",
     "get_clients_in_system_times",
     "get_server_occupancy_rate",
+    "get_outgoing_throughput",
+    "get_incoming_throughput",
 ]
