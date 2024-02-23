@@ -1,4 +1,10 @@
 def get_server_occupancy_rate(clients_times: list[float]) -> float:
+    """Compute the occupancy rate of the server.
+
+    Args:
+        clients_times: list where clients_times is the number of time units where i
+        clients were in the system.
+    """
     observation_duration = sum(clients_times)
     return (observation_duration - clients_times[0]) / observation_duration
 
@@ -6,6 +12,12 @@ def get_server_occupancy_rate(clients_times: list[float]) -> float:
 def get_average_number_of_clients(
     clients_times: list[float],
 ) -> float:
+    """Compute the average number of clients.
+
+    Args:
+        clients_times: list where clients_times is the number of time units where i
+        clients were in the system.
+    """
     pondered_times = [
         clients_in_system_time * i
         for i, clients_in_system_time in enumerate(clients_times)
@@ -18,6 +30,17 @@ def get_clients_times(
     departure_times: list[float],
     observation_duration: float,
 ) -> list[float]:
+    """Compute the cumulated time for each number of clients (A.K.A 'T').
+
+    Args:
+        arrival_times: list where arrival_times[i] is the moment where client i arrived.
+        departure_times: list where departure_times[i] is the moment where client i left.
+        observation_duration: how long the observation lasts.
+
+    Returns:
+        A list where result[i] is the number of time units where i clients were in the
+        system.
+    """
     events = [(time, "ARRIVAL") for time in arrival_times] + [
         (time, "DEPARTURE") for time in departure_times
     ]
