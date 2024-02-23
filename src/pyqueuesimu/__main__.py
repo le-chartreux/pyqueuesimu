@@ -9,10 +9,10 @@ from pyqueuesimu import (
     generate_inter_arrival_times,
     generate_service_times,
     get_arrival_times,
-    get_average_number_of_clients_in_system,
+    get_average_number_of_clients,
     get_average_service_time,
     get_average_waiting_time,
-    get_clients_in_system_times,
+    get_clients_times,
     get_departure_times,
     get_incoming_throughput,
     get_outgoing_throughput,
@@ -85,11 +85,11 @@ def cli_confidence_interval_on_stats_95_percent(
 
         stats_average_waiting_time.append(get_average_waiting_time(waiting_times))
         stats_average_service_time.append(get_average_service_time(service_times))
-        clients_in_system_times = get_clients_in_system_times(
+        clients_in_system_times = get_clients_times(
             arrival_times, departure_times, observation_duration
         )
         stats_average_number_of_clients.append(
-            get_average_number_of_clients_in_system(clients_in_system_times)
+            get_average_number_of_clients(clients_in_system_times)
         )
         stats_server_occupancy_rate.append(
             get_server_occupancy_rate(clients_in_system_times)
@@ -186,10 +186,10 @@ def show_stats(
     waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
     average_service_time = get_average_service_time(service_times)
-    clients_in_system_times = get_clients_in_system_times(
+    clients_in_system_times = get_clients_times(
         arrival_times, departure_times, observation_duration
     )
-    average_number_of_clients_in_system = get_average_number_of_clients_in_system(
+    average_number_of_clients_in_system = get_average_number_of_clients(
         clients_in_system_times
     )
     server_occupancy_rate = get_server_occupancy_rate(clients_in_system_times)
