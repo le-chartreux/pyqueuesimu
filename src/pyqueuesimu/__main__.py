@@ -70,7 +70,7 @@ def cli_confidence_interval_on_stats_95_percent(
     """
     stats_average_waiting_time = []
     stats_average_service_time = []
-    stats_average_number_of_clients_in_system = []
+    stats_average_number_of_clients = []
     stats_server_occupancy_rate = []
     stats_incoming_throughput = []
     stats_outgoing_throughput = []
@@ -88,7 +88,7 @@ def cli_confidence_interval_on_stats_95_percent(
         clients_in_system_times = get_clients_in_system_times(
             arrival_times, departure_times, observation_duration
         )
-        stats_average_number_of_clients_in_system.append(
+        stats_average_number_of_clients.append(
             get_average_number_of_clients_in_system(clients_in_system_times)
         )
         stats_server_occupancy_rate.append(
@@ -110,8 +110,8 @@ def cli_confidence_interval_on_stats_95_percent(
         f"{compute_confidence_interval_95_percents(stats_average_service_time)}"
     )
     print(
-        "Confidence interval average number of clients in the system: "
-        f"{compute_confidence_interval_95_percents(stats_average_number_of_clients_in_system)}"
+        "Confidence interval average number of clients: "
+        f"{compute_confidence_interval_95_percents(stats_average_number_of_clients)}"
     )
     print(
         "Confidence interval average occupancy rate: "
