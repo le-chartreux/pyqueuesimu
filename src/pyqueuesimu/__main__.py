@@ -5,7 +5,6 @@ import typer
 from rich import print
 
 from pyqueuesimu import (
-    compute_confidence_interval_95_percents,
     generate_inter_arrival_times,
     generate_service_times,
     get_arrival_times,
@@ -13,6 +12,7 @@ from pyqueuesimu import (
     get_average_service_time,
     get_average_waiting_time,
     get_clients_times,
+    get_confidence_interval_95_percents,
     get_departure_times,
     get_incoming_throughput,
     get_outgoing_throughput,
@@ -91,9 +91,7 @@ def cli_confidence_interval_on_stats_95_percent(
         stats_average_number_of_clients.append(
             get_average_number_of_clients(clients_times)
         )
-        stats_server_occupancy_rate.append(
-            get_server_occupancy_rate(clients_times)
-        )
+        stats_server_occupancy_rate.append(get_server_occupancy_rate(clients_times))
         stats_incoming_throughput.append(
             get_incoming_throughput(arrival_times, observation_duration)
         )
@@ -103,27 +101,27 @@ def cli_confidence_interval_on_stats_95_percent(
 
     print(
         "Confidence interval for average waiting time: "
-        f"{compute_confidence_interval_95_percents(stats_outgoing_throughput)}"
+        f"{get_confidence_interval_95_percents(stats_outgoing_throughput)}"
     )
     print(
         "Confidence interval for average service time: "
-        f"{compute_confidence_interval_95_percents(stats_average_service_time)}"
+        f"{get_confidence_interval_95_percents(stats_average_service_time)}"
     )
     print(
         "Confidence interval for average number of clients: "
-        f"{compute_confidence_interval_95_percents(stats_average_number_of_clients)}"
+        f"{get_confidence_interval_95_percents(stats_average_number_of_clients)}"
     )
     print(
         "Confidence interval for average occupancy rate: "
-        f"{compute_confidence_interval_95_percents(stats_server_occupancy_rate)}"
+        f"{get_confidence_interval_95_percents(stats_server_occupancy_rate)}"
     )
     print(
         "Confidence interval for incoming throughput: "
-        f"{compute_confidence_interval_95_percents(stats_incoming_throughput)}"
+        f"{get_confidence_interval_95_percents(stats_incoming_throughput)}"
     )
     print(
         "Confidence interval for outgoing throughput: "
-        f"{compute_confidence_interval_95_percents(stats_outgoing_throughput)}"
+        f"{get_confidence_interval_95_percents(stats_outgoing_throughput)}"
     )
 
 
@@ -189,9 +187,7 @@ def show_stats(
     clients_times = get_clients_times(
         arrival_times, departure_times, observation_duration
     )
-    average_number_of_clients = get_average_number_of_clients(
-        clients_times
-    )
+    average_number_of_clients = get_average_number_of_clients(clients_times)
     server_occupancy_rate = get_server_occupancy_rate(clients_times)
     incoming_throughput = get_incoming_throughput(arrival_times, observation_duration)
     outgoing_throughput = get_outgoing_throughput(departure_times, observation_duration)
