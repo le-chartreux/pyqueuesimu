@@ -102,27 +102,27 @@ def cli_confidence_interval_on_stats_95_percent(
         )
 
     print(
-        "Confidence interval average waiting time: "
+        "Confidence interval for average waiting time: "
         f"{compute_confidence_interval_95_percents(stats_outgoing_throughput)}"
     )
     print(
-        "Confidence interval average service time: "
+        "Confidence interval for average service time: "
         f"{compute_confidence_interval_95_percents(stats_average_service_time)}"
     )
     print(
-        "Confidence interval average number of clients: "
+        "Confidence interval for average number of clients: "
         f"{compute_confidence_interval_95_percents(stats_average_number_of_clients)}"
     )
     print(
-        "Confidence interval average occupancy rate: "
+        "Confidence interval for average occupancy rate: "
         f"{compute_confidence_interval_95_percents(stats_server_occupancy_rate)}"
     )
     print(
-        "Confidence interval incoming throughput: "
+        "Confidence interval for incoming throughput: "
         f"{compute_confidence_interval_95_percents(stats_incoming_throughput)}"
     )
     print(
-        "Confidence interval outgoing throughput: "
+        "Confidence interval for outgoing throughput: "
         f"{compute_confidence_interval_95_percents(stats_outgoing_throughput)}"
     )
 
