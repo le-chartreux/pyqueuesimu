@@ -49,7 +49,7 @@ python -m venv .venv
 .venv/Scripts/activate
 # Install the project
 pip install .
-# Run pyqueuesimu-cli with the parameters you want
+# Run pyqueuesimu with the parameters you want
 pyqueuesimu cli 8 12 --observation-duration 10
 pyqueuesimu gui 100 2 --observation-duration 60
 # The list of parameters is available with the following command
