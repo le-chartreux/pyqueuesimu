@@ -14,6 +14,11 @@ The subject is available [here](docs/subject.pdf).
   * [Usage](#usage)
     * [Unix-based systems](#unix-based-systems)
     * [Windows](#windows)
+  * [Examples](#examples)
+    * [cli](#cli)
+    * [gui](#gui)
+    * [gui-example](#gui-example)
+    * [cli-confidence-interval-on-stats-95-percent](#cli-confidence-interval-on-stats-95-percent)
 <!-- TOC -->
 
 ## Usage
