@@ -85,13 +85,17 @@ def cli_confidence_interval_on_stats_95_percent(
 
         stats_average_waiting_time.append(get_average_waiting_time(waiting_times))
         stats_average_service_time.append(get_average_service_time(service_times))
-        clients_times = get_cumulated_time_for_each_number_of_clients(
-            arrival_times, departure_times, observation_duration
+        cumulated_time_for_each_number_of_clients = (
+            get_cumulated_time_for_each_number_of_clients(
+                arrival_times, departure_times, observation_duration
+            )
         )
         stats_average_number_of_clients.append(
-            get_average_number_of_clients(clients_times)
+            get_average_number_of_clients(cumulated_time_for_each_number_of_clients)
         )
-        stats_server_occupancy_rate.append(get_server_occupancy_rate(clients_times))
+        stats_server_occupancy_rate.append(
+            get_server_occupancy_rate(cumulated_time_for_each_number_of_clients)
+        )
         stats_incoming_throughput.append(
             get_incoming_throughput(arrival_times, observation_duration)
         )
@@ -184,11 +188,17 @@ def show_stats(
     waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
     average_service_time = get_average_service_time(service_times)
-    clients_times = get_cumulated_time_for_each_number_of_clients(
-        arrival_times, departure_times, observation_duration
+    cumulated_time_for_each_number_of_clients = (
+        get_cumulated_time_for_each_number_of_clients(
+            arrival_times, departure_times, observation_duration
+        )
     )
-    average_number_of_clients = get_average_number_of_clients(clients_times)
-    server_occupancy_rate = get_server_occupancy_rate(clients_times)
+    average_number_of_clients = get_average_number_of_clients(
+        cumulated_time_for_each_number_of_clients
+    )
+    server_occupancy_rate = get_server_occupancy_rate(
+        cumulated_time_for_each_number_of_clients
+    )
     incoming_throughput = get_incoming_throughput(arrival_times, observation_duration)
     outgoing_throughput = get_outgoing_throughput(departure_times, observation_duration)
 
