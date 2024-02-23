@@ -1,16 +1,16 @@
-def get_server_occupancy_rate(clients_in_system_times: list[float]) -> float:
-    observation_duration = sum(clients_in_system_times)
-    return (observation_duration - clients_in_system_times[0]) / observation_duration
+def get_server_occupancy_rate(clients_times: list[float]) -> float:
+    observation_duration = sum(clients_times)
+    return (observation_duration - clients_times[0]) / observation_duration
 
 
 def get_average_number_of_clients(
-    clients_in_system_times: list[float],
+    clients_times: list[float],
 ) -> float:
     pondered_times = [
         clients_in_system_time * i
-        for i, clients_in_system_time in enumerate(clients_in_system_times)
+        for i, clients_in_system_time in enumerate(clients_times)
     ]
-    return sum(pondered_times) / sum(clients_in_system_times)
+    return sum(pondered_times) / sum(clients_times)
 
 
 def get_clients_times(
