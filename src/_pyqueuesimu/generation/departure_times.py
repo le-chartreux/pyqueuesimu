@@ -24,7 +24,7 @@ def get_departure_times(
 
 def get_departure_times_limited_buffer(
     arrival_times: list[float], service_times: list[float], buffer_size: int
-) -> list[float]:
+) -> list[float | None]:
     """Get the ordinated list of time departures with a limited buffer size.
 
     Args:
@@ -38,7 +38,7 @@ def get_departure_times_limited_buffer(
 
     Returns:
         An ordinated list where result[i] is the moment where client i left the system.
-        If client i was lost, result[i] = -1
+        If client i was lost, result[i] = None
 
     Raises:
         ValueError: When len(arrival_times) != len(service_times)
@@ -53,7 +53,9 @@ def get_departure_times_limited_buffer(
     previous_departure_time = 0.0
     for arrival_time, service_time in zip(arrival_times, service_times, strict=True):
         number_of_clients = sum(
-            1 for departure_time in departure_times if departure_time > arrival_time
+            1
+            for departure_time in departure_times
+            if departure_time is not None and departure_time > arrival_time
         )
         if number_of_clients < buffer_size + 1:
             beginning_of_computation_time = max(arrival_time, previous_departure_time)
@@ -61,5 +63,5 @@ def get_departure_times_limited_buffer(
             departure_times.append(departure_time)
             previous_departure_time = departure_time
         else:
-            departure_times.append(-1)
+            departure_times.append(None)
     return departure_times
