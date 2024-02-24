@@ -15,6 +15,7 @@ from _pyqueuesimu.statistics.clients import (
 from _pyqueuesimu.statistics.confidence_interval import (
     get_confidence_interval_95_percents,
 )
+from _pyqueuesimu.statistics.loss_rate import get_loss_rate
 from _pyqueuesimu.statistics.service_time import get_average_service_time
 from _pyqueuesimu.statistics.throughput import (
     get_incoming_throughput,
@@ -26,6 +27,7 @@ from _pyqueuesimu.statistics.waiting_time import (
 )
 
 __all__ = [
+    "get_loss_rate",
     "get_confidence_interval_95_percents",
     "get_arrival_times",
     "get_departure_times",
