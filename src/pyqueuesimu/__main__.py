@@ -170,7 +170,7 @@ def gui(
     # Identify and highlight lost clients
     for i, value in enumerate(departure_times):
         if value is None:
-            plt.axvspan(i - 0.1, i + 0.1, color='red', alpha=0.1)
+            plt.axvspan(i - 0.1, i + 0.1, color="red", alpha=0.1)
     plt.xlabel("Client number")
     plt.ylabel(f"Time {f'({time_unit})' if time_unit else ''}")
     plt.title("Arrival and Departure of Clients")
