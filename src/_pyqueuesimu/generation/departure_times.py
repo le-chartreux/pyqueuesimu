@@ -17,7 +17,9 @@ def get_departure_times(
         ValueError: When len(arrival_times) != len(service_times)
     """
     # same that with a limited buffer that can fit everything
-    return get_departure_times_limited_buffer(arrival_times, service_times, len(arrival_times))
+    return get_departure_times_limited_buffer(
+        arrival_times, service_times, len(arrival_times)
+    )
 
 
 def get_departure_times_limited_buffer(
