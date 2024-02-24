@@ -16,6 +16,7 @@ from pyqueuesimu import (
     get_departure_times,
     get_departure_times_limited_buffer,
     get_incoming_throughput,
+    get_loss_rate,
     get_outgoing_throughput,
     get_server_occupancy_rate,
     get_waiting_times,
@@ -227,15 +228,21 @@ def _show_stats(
 
 
 def _show_stats_with_buffer(
-    _arrival_times: list[float],
-    _departure_times: list[float],
-    _service_times: list[float],
-    _observation_duration: float,
-    _buffer_size: int,
-    _time_unit: str = "",
+    arrival_times: list[float],
+    departure_times: list[float],
+    service_times: list[float],
+    observation_duration: float,
+    buffer_size: int,
+    time_unit: str = "",
 ) -> None:
     """Show some statistics about the execution when a buffer size is set."""
-    print("Currently no statistics when a buffer size is set.")
+    del arrival_times  # unused for now
+    del service_times  # unused for now
+    del observation_duration  # unused for now
+    del buffer_size  # unused for now
+    del time_unit  # unused for now
+    loss_rate = get_loss_rate(departure_times)
+    print(f"Loss rate: {loss_rate}")
 
 
 def _show_stats_without_buffer(
