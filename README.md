@@ -19,6 +19,7 @@ The subject is available [here](docs/subject.pdf).
     * [gui](#gui)
     * [gui-example](#gui-example)
     * [cli-confidence-interval-on-stats-95-percent](#cli-confidence-interval-on-stats-95-percent)
+    * [With a limited buffer size](#with-a-limited-buffer-size)
 <!-- TOC -->
 
 ## Usage
@@ -106,4 +107,20 @@ pyqueuesimu cli-confidence-interval-on-stats-95-percent 276 500 --observation-du
 ```
 
 ![Result of the execution of the cli-confidence-interval-on-stats-95-percent command](docs/README-files/cli-confidence-interval-on-stats-95-percent-result.png)
+
+### With a limited buffer size
+
+You can limit the buffer size using the `--buffer-size` parameter.
+
+```shell
+pyqueuesimu gui 10 15 --observation-duration 10 --buffer-size 0
+```
+
+Every red line indicates that the client was lost due to buffer limitation.
+
+![Result of the execution of the gui command with buffer size specified - plot](docs/README-files/gui-with-buffer-result.png)
+
+The loss rate will be shown for statistical purpose.
+
+![Result of the execution of the gui command with buffer size specified - loss rate](docs/README-files/gui-with-buffer-loss-rate-result.png)
 
