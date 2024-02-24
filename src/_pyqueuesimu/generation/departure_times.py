@@ -24,10 +24,8 @@ def get_departure_times(
         raise ValueError(error_message)
     departure_times = []
     previous_departure_time = 0.0
-    for i in range(len(arrival_times)):
-        arrival_time = arrival_times[i]
+    for arrival_time, service_time in zip(arrival_times, service_times, strict=True):
         beginning_of_computation_time = max(arrival_time, previous_departure_time)
-        service_time = service_times[i]
         departure_time = beginning_of_computation_time + service_time
         departure_times.append(departure_time)
         previous_departure_time = departure_time
