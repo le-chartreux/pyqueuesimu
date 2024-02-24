@@ -49,7 +49,7 @@ def cli(
     print(f"Arrival times: {arrival_times}")
     print(f"Service times: {service_times}")
     print(f"Departure times: {departure_times}")
-    show_stats(arrival_times, departure_times, service_times, observation_duration)
+    _show_stats(arrival_times, departure_times, service_times, observation_duration)
 
 
 @app.command()
@@ -160,7 +160,7 @@ def gui(
     plt.title("Arrival and Departure of Clients")
     plt.legend()
     plt.show()
-    show_stats(
+    _show_stats(
         arrival_times, departure_times, service_times, observation_duration, time_unit
     )
 
@@ -177,7 +177,7 @@ def gui_example(k: int = 2, observation_duration: float = 60) -> None:
     gui(arrival_rate, service_rate, observation_duration, time_unit="seconds")
 
 
-def show_stats(
+def _show_stats(
     arrival_times: list[float],
     departure_times: list[float],
     service_times: list[float],
