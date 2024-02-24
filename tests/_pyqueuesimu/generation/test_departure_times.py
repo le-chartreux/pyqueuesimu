@@ -69,8 +69,6 @@ def test_get_departure_times_limited_buffer(
     result = get_departure_times_limited_buffer(
         arrival_times, service_times, buffer_size
     )
-    print(expected_result)
-    print(result)
     assert all(
         math.isclose(elem_result, elem_expected_result)
         for elem_result, elem_expected_result in zip(
