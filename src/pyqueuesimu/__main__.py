@@ -14,6 +14,7 @@ from pyqueuesimu import (
     get_confidence_interval_95_percents,
     get_cumulated_time_for_each_number_of_clients,
     get_departure_times,
+    get_departure_times_limited_buffer,
     get_incoming_throughput,
     get_outgoing_throughput,
     get_server_occupancy_rate,
@@ -28,6 +29,7 @@ def cli(
     arrival_rate: float,
     service_rate: float,
     observation_duration: float = 60,
+    buffer_size: int = -1,
 ) -> None:
     """Run the queue simulation and output to command line.
 
@@ -38,18 +40,23 @@ def cli(
         arrival_rate: number of client arrival per time unit.
         service_rate: average number of clients per time units that are served.
         observation_duration: how long the observation should last.
+        buffer_size: size of the buffer. If the number of clients is greater than the
+            buffer size + 1 (because of the client that is currently serviced), the
+            next clients to arrive will be lost (value of None). If negative value,
+            unlimited buffer.
     """
-    time_between_arrivals = generate_inter_arrival_times(
-        arrival_rate, observation_duration
+    time_between_arrivals, arrival_times, service_times, departure_times = (
+        _generate_simulation(
+            arrival_rate, service_rate, observation_duration, buffer_size
+        )
     )
-    arrival_times = get_arrival_times(time_between_arrivals)
-    service_times = generate_service_times(service_rate, len(arrival_times))
-    departure_times = get_departure_times(arrival_times, service_times)
     print(f"Time between arrivals: {time_between_arrivals}")
     print(f"Arrival times: {arrival_times}")
     print(f"Service times: {service_times}")
     print(f"Departure times: {departure_times}")
-    _show_stats(arrival_times, departure_times, service_times, observation_duration)
+    _show_stats(
+        arrival_times, departure_times, service_times, observation_duration, buffer_size
+    )
 
 
 @app.command()
@@ -57,6 +64,7 @@ def cli_confidence_interval_on_stats_95_percent(
     arrival_rate: float,
     service_rate: float,
     observation_duration: float = 60,
+    buffer_size: int = -1,
 ) -> None:
     """Compute stats on the queue simulation with confidence interval of 95%.
 
@@ -67,6 +75,10 @@ def cli_confidence_interval_on_stats_95_percent(
         arrival_rate: number of client arrival per time unit.
         service_rate: average number of clients per time units that are served.
         observation_duration: how long the observation should last.
+        buffer_size: size of the buffer. If the number of clients is greater than the
+            buffer size + 1 (because of the client that is currently serviced), the
+            next clients to arrive will be lost (value of None). If negative value,
+            unlimited buffer.
     """
     stats_average_waiting_time = []
     stats_average_service_time = []
@@ -75,12 +87,10 @@ def cli_confidence_interval_on_stats_95_percent(
     stats_incoming_throughput = []
     stats_outgoing_throughput = []
     for _ in range(100):
-        time_between_arrivals = generate_inter_arrival_times(
-            arrival_rate, observation_duration
+        _, arrival_times, service_times, departure_times = _generate_simulation(
+            arrival_rate, service_rate, observation_duration, buffer_size
         )
-        arrival_times = get_arrival_times(time_between_arrivals)
-        service_times = generate_service_times(service_rate, len(arrival_times))
-        departure_times = get_departure_times(arrival_times, service_times)
+
         waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
 
         stats_average_waiting_time.append(get_average_waiting_time(waiting_times))
@@ -135,6 +145,7 @@ def gui(
     service_rate: float,
     observation_duration: float = 60,
     time_unit: str = "",
+    buffer_size: int = -1,
 ) -> None:
     """Run the queue simulation and output to a graphical interface (plot).
 
@@ -146,13 +157,14 @@ def gui(
         service_rate: average number of clients per time units that are served.
         observation_duration: how long the observation should last.
         time_unit: optional parameter to indicate the time unit (only aesthetic).
+        buffer_size: size of the buffer. If the number of clients is greater than the
+            buffer size + 1 (because of the client that is currently serviced), the
+            next clients to arrive will be lost (value of None). If negative value,
+            unlimited buffer.
     """
-    time_between_arrivals = generate_inter_arrival_times(
-        arrival_rate, observation_duration
+    _, arrival_times, service_times, departure_times = _generate_simulation(
+        arrival_rate, service_rate, observation_duration, buffer_size
     )
-    arrival_times = get_arrival_times(time_between_arrivals)
-    service_times = generate_service_times(service_rate, len(arrival_times))
-    departure_times = get_departure_times(arrival_times, service_times)
     plt.plot(arrival_times, label="Arrivals")
     plt.plot(departure_times, label="Departures")
     plt.xlabel("Client number")
@@ -161,7 +173,12 @@ def gui(
     plt.legend()
     plt.show()
     _show_stats(
-        arrival_times, departure_times, service_times, observation_duration, time_unit
+        arrival_times,
+        departure_times,
+        service_times,
+        observation_duration,
+        buffer_size,
+        time_unit,
     )
 
 
@@ -182,9 +199,49 @@ def _show_stats(
     departure_times: list[float],
     service_times: list[float],
     observation_duration: float,
+    buffer_size: int,
     time_unit: str = "",
 ) -> None:
     """Show some statistics about the execution."""
+    if buffer_size >= 0:
+        _show_stats_with_buffer(
+            arrival_times,
+            departure_times,
+            service_times,
+            observation_duration,
+            buffer_size,
+            time_unit,
+        )
+    else:
+        _show_stats_without_buffer(
+            arrival_times,
+            departure_times,
+            service_times,
+            observation_duration,
+            time_unit,
+        )
+
+
+def _show_stats_with_buffer(
+    _arrival_times: list[float],
+    _departure_times: list[float],
+    _service_times: list[float],
+    _observation_duration: float,
+    _buffer_size: int,
+    _time_unit: str = "",
+) -> None:
+    """Show some statistics about the execution when a buffer size is set."""
+    print("Currently no statistics when a buffer size is set.")
+
+
+def _show_stats_without_buffer(
+    arrival_times: list[float],
+    departure_times: list[float],
+    service_times: list[float],
+    observation_duration: float,
+    time_unit: str,
+) -> None:
+    """Show some statistics about the execution when no buffer size is set."""
     waiting_times = get_waiting_times(arrival_times, departure_times, service_times)
     average_waiting_time = get_average_waiting_time(waiting_times)
     average_service_time = get_average_service_time(service_times)
@@ -208,3 +265,37 @@ def _show_stats(
     print(f"Server occupancy rate: {server_occupancy_rate}")
     print(f"Incoming throughput: {incoming_throughput}")
     print(f"Outgoing throughput: {outgoing_throughput}")
+
+
+def _generate_simulation(
+    arrival_rate: float,
+    service_rate: float,
+    observation_duration: float,
+    buffer_size: int,
+) -> tuple[list[float], list[float], list[float], list[float | None]]:
+    """Create the values of the simulation.
+
+    Args:
+        arrival_rate: number of client arrival per time unit.
+        service_rate: average number of clients per time units that are served.
+        observation_duration: how long the observation should last.
+        buffer_size: size of the buffer. If the number of clients is greater than the
+            buffer size + 1 (because of the client that is currently serviced), the
+            next clients to arrive will be lost (value of None). If negative value,
+            unlimited buffer.
+
+    Returns:
+        A tuple (time_between_arrivals, arrival_times, service_times, departure_times).
+    """
+    time_between_arrivals = generate_inter_arrival_times(
+        arrival_rate, observation_duration
+    )
+    arrival_times = get_arrival_times(time_between_arrivals)
+    service_times = generate_service_times(service_rate, len(arrival_times))
+    if buffer_size < 0:
+        departure_times = get_departure_times(arrival_times, service_times)
+    else:
+        departure_times = get_departure_times_limited_buffer(
+            arrival_times, service_times, buffer_size
+        )
+    return time_between_arrivals, arrival_times, service_times, departure_times
