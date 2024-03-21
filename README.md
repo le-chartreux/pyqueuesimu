@@ -1,8 +1,9 @@
 # pyqueuesimu 📊
 
 pyqueuesimu is a Python tool for simulating queues.
-It was developed as part of TELECOM Nancy's course "Performance evaluation".
-The library allows users to simulate queues with different parameters and observe the results.
+It allows users to simulate queues with different parameters and observe the results.
+
+pyqueuesimu was developed as part of TELECOM Nancy's course "Performance evaluation".
 The subject is available [here](docs/subject.pdf).
 
 ## Table of Contents 📃
